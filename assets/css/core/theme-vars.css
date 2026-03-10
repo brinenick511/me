@@ -2,8 +2,8 @@
     --gap: 24px;
     --content-gap: 20px;
     --nav-width: 1024px;
-    --main-width: 720px;
-    --header-height: 44px;
+    --main-width: 760px;
+    --header-height: 46px;
     --footer-height: 70px;
     --radius: 8px;
     --theme: rgb(255, 255, 255);
@@ -23,7 +23,7 @@
     --textsize: 18px;
     --h1size: 25px;
     --entrysize: 15px;
-    --headersize: 16px;
+    --headersize: 17px;
     --footersize: 13px;
     --lineheight: 1.45;
     --lineclamp: 8;
@@ -48,4 +48,10 @@
 
 .dark.list {
     background: var(--theme);
+}
+
+@media screen and (max-width: 900px) {
+    :root {
+        --main-width: 720px;
+    }
 }

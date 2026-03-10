@@ -62,12 +62,30 @@ body:not(.dark) #sun {
 }
 
 #menu a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     font-size: var(--headersize);
     font-weight: 400;
 }
 
-#menu .active {
+#menu .menu-item-label.active {
+    display: inline-block;
     border-bottom: 2px solid var(--darkcolor);
+}
+
+.menu-item-icon {
+    display: inline-flex;
+}
+
+.menu-item-icon svg {
+    width: 1.2rem;
+    height: 1.2rem;
+    transform: translateY(3px);
+}
+
+.menu-item-icon-papers {
+    margin-right: 2px;
 }
 
 .lang-switch li,

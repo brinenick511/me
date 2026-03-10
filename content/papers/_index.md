@@ -1,4 +1,4 @@
 ---
 title: "Papers"
-description: "Research papers by Haoqi Yang."
+# description: "Research papers by Haoqi Yang."
 ---

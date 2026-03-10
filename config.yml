@@ -20,7 +20,7 @@ menu:
           weight: 2
 
 params:
-    description: "Haoqi Yang's academic homepage."
+    # description: "Haoqi Yang's academic homepage."
     author: Haoqi Yang
     # googleAnalyticsID: "G-XXXXX"
     DateFormat: "January 2006"
@@ -46,7 +46,7 @@ params:
     profileMode:
           enabled: true
           title: Haoqi Yang
-          subtitle: "Research on efficient inference and compression for large language models."
+          # subtitle: "Research on efficient inference and compression for large language models."
           imageUrl: "avatar.jpg"
           imageWidth: 160
           imageHeight: 160
@@ -55,8 +55,8 @@ params:
               url: papers/
 
     socialIcons:
-        - name: CV
-          url: cv.pdf
+        # - name: CV
+          # url: cv.pdf
         - name: Email
           url: yanghq@whu.edu.cn
         # - name: Zoom
@@ -67,8 +67,8 @@ params:
           # url: officehours/
         - name: Google Scholar
           url: https://scholar.google.com/citations?user=iPVBGqoAAAAJ&hl
-        - name: GitHub
-          url: https://github.com/brinenick511
+        # - name: GitHub
+          # url: https://github.com/brinenick511
         # - name: Substack
           # url: https://pmichaillat.substack.com
         # - name: YouTube
@@ -83,7 +83,7 @@ params:
         hiddenInSingle: true
     label:
       text: "Haoqi Yang"
-      icon: favicon.ico
+      # icon: favicon.ico
       iconHeight: 18
 
 markup:

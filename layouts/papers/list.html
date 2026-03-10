@@ -15,12 +15,12 @@
   </header>
   <div class="entry-content paper-entry-content">
     <p class="paper-authors">{{ partial "papers/render_authors.html" (dict "authors" (index $bib "author") "equalContributors" $equalContributors) }}</p>
-    {{- with .Summary }}
-    <p>{{ . }}</p>
-    {{- end }}
   </div>
   <footer class="entry-footer paper-entry-footer">
     <span>{{ index $bib "publication" }}</span>
+    {{- with index $bib "year" }}
+    <span>{{ . }}</span>
+    {{- end }}
     {{- if gt $equalContributors 0 }}
     <span class="paper-note">* equal contribution</span>
     {{- end }}

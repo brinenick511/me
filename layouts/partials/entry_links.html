@@ -31,7 +31,8 @@
     {{- $href = .url | relLangURL -}}
   {{- end -}}
   <a class="profile-link" href="{{ $href | safeURL }}" {{ if .external }}target="_blank" rel="noopener noreferrer"{{ end }}>
-    {{- .name -}}
+    <span class="profile-link-icon" aria-hidden="true">{{ partial "svg.html" (dict "name" .name) }}</span>
+    <span class="profile-link-label">{{ .name }}</span>
   </a>
   {{- end }}
 </nav>

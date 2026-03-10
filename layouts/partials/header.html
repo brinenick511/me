@@ -134,9 +134,11 @@
             <li>
                 <a href="{{ if $is_external }}{{ .URL }}{{ else }}{{ .URL | relLangURL }}{{ end }}" title="{{ .Title | default .Name }} {{- cond $is_search (" (Alt + /)" | safeHTMLAttr) ("" | safeHTMLAttr ) }}"
                 {{- cond $is_search (" accesskey=/" | safeHTMLAttr) ("" | safeHTMLAttr ) }}>
-                    <span {{- if and (not $is_external) (eq $menu_item_url $page_url) }} class="active" {{- end }}>
-                        {{- .Pre }}
-                        {{- .Name -}}
+                    <span>
+                        <span class="menu-item-icon menu-item-icon-{{ lower .Name | urlize }}" aria-hidden="true">{{ partial "svg.html" (dict "name" .Name) }}</span>
+                        <span class="menu-item-label {{- if and (not $is_external) (eq $menu_item_url $page_url) }} active{{- end }}">
+                        {{- .Pre }}{{- .Name -}}
+                        </span>
                         {{ .Post -}}
                     </span>
                     {{- if (findRE "://" .URL) }}&nbsp;
