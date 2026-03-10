@@ -1,0 +1,31 @@
+{{- define "main" -}}
+<header class="page-header">
+  <h1>{{ .Title }}</h1>
+  {{- with .Description }}
+  <div class="post-description">{{ . }}</div>
+  {{- end }}
+</header>
+
+{{- range .RegularPages.ByWeight -}}
+{{- $bib := partial "papers/get_bib_entry.html" .Params.bibtex -}}
+{{- $equalContributors := int (index $bib "equalcontributors" | default "0") -}}
+<article class="post-entry paper-entry">
+  <header class="entry-header">
+    <h2>{{ index $bib "title" }}</h2>
+  </header>
+  <div class="entry-content paper-entry-content">
+    <p class="paper-authors">{{ partial "papers/render_authors.html" (dict "authors" (index $bib "author") "equalContributors" $equalContributors) }}</p>
+    {{- with .Summary }}
+    <p>{{ . }}</p>
+    {{- end }}
+  </div>
+  <footer class="entry-footer paper-entry-footer">
+    <span>{{ index $bib "publication" }}</span>
+    {{- if gt $equalContributors 0 }}
+    <span class="paper-note">* equal contribution</span>
+    {{- end }}
+  </footer>
+  <a class="entry-link" aria-label="paper link to {{ index $bib "title" | plainify }}" href="{{ .RelPermalink }}"></a>
+</article>
+{{- end -}}
+{{- end -}}

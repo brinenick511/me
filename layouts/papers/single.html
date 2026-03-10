@@ -1,0 +1,47 @@
+{{- define "main" -}}
+{{- $bib := partial "papers/get_bib_entry.html" .Params.bibtex -}}
+{{- $equalContributors := int (index $bib "equalcontributors" | default "0") -}}
+
+<article class="post-single post-single-papers">
+  <header class="post-header">
+    <h1 class="post-title">{{ index $bib "title" }}</h1>
+    <div class="post-meta paper-meta">
+      <span class="paper-authors">{{ partial "papers/render_authors.html" (dict "authors" (index $bib "author") "equalContributors" $equalContributors) }}</span>
+      {{- if index $bib "publication" }}
+      <span>{{ index $bib "publication" }}</span>
+      {{- else if eq (index $bib "type") "inproceedings" }}
+      <span>{{ index $bib "booktitle" }}</span>
+      {{- end }}
+      {{- with index $bib "year" }}
+      <span>{{ . }}</span>
+      {{- end }}
+      {{- if gt $equalContributors 0 }}
+      <span>* equal contribution</span>
+      {{- end }}
+    </div>
+  </header>
+
+  <div class="post-content">
+    {{- if or (index $bib "url") (index $bib "code") }}
+    <h5>Links</h5>
+    <ul>
+      {{- if index $bib "url" }}
+      <li><a href="{{ index $bib "url" }}" target="_blank" rel="noopener noreferrer">Paper</a></li>
+      {{- end }}
+      {{- if index $bib "code" }}
+      <li><a href="{{ index $bib "code" }}" target="_blank" rel="noopener noreferrer">Code</a></li>
+      {{- end }}
+    </ul>
+    {{- end }}
+
+    {{- if .Content }}
+    {{ .Content }}
+    {{- end }}
+
+    {{- if .Params.showBibtex }}
+    <h5>BibTeX</h5>
+    <pre><code class="language-bibtex">{{ index $bib "raw" }}</code></pre>
+    {{- end }}
+  </div>
+</article>
+{{- end -}}

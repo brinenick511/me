@@ -1,0 +1,38 @@
+{{- $links := slice -}}
+
+{{- with site.Params.profileMode.buttons -}}
+  {{- range . -}}
+    {{- $links = $links | append (dict
+      "name" .name
+      "url" (trim .url " ")
+      "external" (findRE "://" .url)
+    ) -}}
+  {{- end -}}
+{{- end -}}
+
+{{- range site.Params.socialIcons -}}
+  {{- $rawURL := trim .url " " -}}
+  {{- $url := $rawURL -}}
+  {{- if and (not (findRE "^(https?:)?//" $rawURL)) (not (hasPrefix $rawURL "/")) (not (hasPrefix $rawURL "#")) (not (hasPrefix $rawURL "mailto:")) (in $rawURL "@") -}}
+    {{- $url = printf "mailto:%s" $rawURL -}}
+  {{- end -}}
+  {{- $links = $links | append (dict
+    "name" (.title | default .name)
+    "url" $url
+    "external" (findRE "^(https?:)?//" $url)
+  ) -}}
+{{- end -}}
+
+{{- if gt (len $links) 0 -}}
+<nav class="profile-links" aria-label="Primary links">
+  {{- range $links }}
+  {{- $href := .url -}}
+  {{- if and (not .external) (not (hasPrefix .url "mailto:")) (not (hasPrefix .url "#")) -}}
+    {{- $href = .url | relLangURL -}}
+  {{- end -}}
+  <a class="profile-link" href="{{ $href | safeURL }}" {{ if .external }}target="_blank" rel="noopener noreferrer"{{ end }}>
+    {{- .name -}}
+  </a>
+  {{- end }}
+</nav>
+{{- end -}}

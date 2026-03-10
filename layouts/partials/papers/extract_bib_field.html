@@ -1,0 +1,16 @@
+{{- $entry := .entry -}}
+{{- $field := .field -}}
+{{- $patternBraces := printf `(?s).*?%s\s*=\s*\{(.*?)\}\s*,?.*` $field -}}
+{{- $value := replaceRE $patternBraces "$1" $entry -}}
+{{- if eq $value $entry -}}
+  {{- $patternQuotes := printf `(?s).*?%s\s*=\s*"(.*?)"\s*,?.*` $field -}}
+  {{- $value = replaceRE $patternQuotes "$1" $entry -}}
+{{- end -}}
+{{- if eq $value $entry -}}
+  {{- $patternBare := printf `(?s).*?%s\s*=\s*([^,\n]+)\s*,?.*` $field -}}
+  {{- $value = replaceRE $patternBare "$1" $entry -}}
+{{- end -}}
+{{- if eq $value $entry -}}
+  {{- $value = "" -}}
+{{- end -}}
+{{- return (trim $value " \n\r\t") -}}

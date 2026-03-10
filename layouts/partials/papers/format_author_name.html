@@ -1,0 +1,9 @@
+{{- $name := trim . " " -}}
+{{- if in $name "," -}}
+  {{- $parts := split $name "," -}}
+  {{- $family := trim (index $parts 0) " " -}}
+  {{- $given := trim (index $parts 1) " " -}}
+  {{- printf "%s %s" $given $family -}}
+{{- else -}}
+  {{- $name -}}
+{{- end -}}

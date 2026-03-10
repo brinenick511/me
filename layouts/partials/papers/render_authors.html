@@ -1,0 +1,16 @@
+{{- $authors := split (.authors | default "") " and " -}}
+{{- $equalContributors := .equalContributors | default 0 -}}
+{{- $formatted := slice -}}
+
+{{- range $index, $author := $authors -}}
+  {{- $name := partial "papers/format_author_name.html" $author -}}
+  {{- if eq $name "Haoqi Yang" -}}
+    {{- $name = printf "<strong>%s</strong>" $name -}}
+  {{- end -}}
+  {{- if lt $index $equalContributors -}}
+    {{- $name = printf "%s*" $name -}}
+  {{- end -}}
+  {{- $formatted = $formatted | append $name -}}
+{{- end -}}
+
+{{- delimit $formatted ", " | safeHTML -}}

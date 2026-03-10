@@ -235,6 +235,46 @@
     border: 0;
 }
 
+.post-single-papers .post-content h5 + ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+    margin: 0 0 var(--content-gap);
+    margin-left: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.post-single-papers .post-content h5 + ul li {
+    margin-top: 0;
+}
+
+.post-single-papers .post-content h5 + ul li::marker {
+    content: "";
+}
+
+.post-single-papers .post-content h5 + ul a {
+    box-shadow: none;
+    color: var(--secondary);
+}
+
+.post-single-papers .post-content h5 + ul a:hover {
+    color: var(--primary);
+    box-shadow: 0 1px 0 var(--border);
+}
+
+.paper-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 14px;
+}
+
+.paper-meta span:not(:last-child)::after {
+    content: "·";
+    margin-left: 14px;
+    color: var(--tertiary);
+}
+
 .post-content iframe {
     max-width: 100%;
 }

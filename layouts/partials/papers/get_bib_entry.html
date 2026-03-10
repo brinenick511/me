@@ -1,0 +1,39 @@
+{{- $key := . -}}
+{{- $resource := resources.Get "data/papers.bib" -}}
+{{- $content := "" -}}
+{{- if $resource -}}
+  {{- $content = printf "\n%s" $resource.Content -}}
+{{- end -}}
+{{- $entries := split $content "\n@" -}}
+{{- $result := dict -}}
+
+{{- range $entries -}}
+  {{- $chunk := trim . " \n\r\t" -}}
+  {{- if $chunk -}}
+    {{- $entry := printf "@%s" $chunk -}}
+    {{- $header := index (findRE `^@\w+\s*\{\s*[^,]+` $entry 1) 0 -}}
+    {{- $entryKey := replaceRE `^@\w+\s*\{\s*([^,]+)$` "$1" $header -}}
+    {{- if eq $entryKey $key -}}
+      {{- $entryType := replaceRE `^@(\w+)\s*\{.*$` "$1" $header | lower -}}
+      {{- $result = dict
+        "key" $entryKey
+        "type" $entryType
+        "title" (partial "papers/extract_bib_field.html" (dict "entry" $entry "field" "title"))
+        "author" (partial "papers/extract_bib_field.html" (dict "entry" $entry "field" "author"))
+        "year" (partial "papers/extract_bib_field.html" (dict "entry" $entry "field" "year"))
+        "booktitle" (partial "papers/extract_bib_field.html" (dict "entry" $entry "field" "booktitle"))
+        "publication" (partial "papers/extract_bib_field.html" (dict "entry" $entry "field" "publication"))
+        "url" (partial "papers/extract_bib_field.html" (dict "entry" $entry "field" "url"))
+        "code" (partial "papers/extract_bib_field.html" (dict "entry" $entry "field" "code"))
+        "equalcontributors" (partial "papers/extract_bib_field.html" (dict "entry" $entry "field" "equalcontributors"))
+        "eprint" (partial "papers/extract_bib_field.html" (dict "entry" $entry "field" "eprint"))
+        "archiveprefix" (partial "papers/extract_bib_field.html" (dict "entry" $entry "field" "archivePrefix"))
+        "primaryclass" (partial "papers/extract_bib_field.html" (dict "entry" $entry "field" "primaryClass"))
+        "pages" (partial "papers/extract_bib_field.html" (dict "entry" $entry "field" "pages"))
+        "raw" $entry
+      -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- return $result -}}
