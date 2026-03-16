@@ -92,6 +92,33 @@
     color: var(--secondary);
 }
 
+.title-mask-clean {
+    position: relative;
+    display: inline-block;
+    padding: 0.06em 0.26em;
+    border-radius: 4px;
+    color: transparent;
+    user-select: none;
+}
+
+.title-mask-clean::after {
+    content: "";
+    position: absolute;
+    inset: -0.04em -0.08em;
+    border-radius: 4px;
+    pointer-events: none;
+}
+
+.title-mask-clean::after {
+    background: rgba(247, 248, 250, 0.86);
+    border: 1px solid rgba(235, 237, 240, 0.95);
+}
+
+.dark .title-mask-clean::after {
+    background: rgba(92, 96, 103, 0.8);
+    border-color: rgba(156, 161, 169, 0.42);
+}
+
 .entry-link {
     position: absolute;
     left: 0;

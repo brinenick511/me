@@ -9,9 +9,21 @@
 {{- range .RegularPages.ByWeight -}}
 {{- $bib := partial "papers/get_bib_entry.html" .Params.bibtex -}}
 {{- $equalContributors := int (index $bib "equalcontributors" | default "0") -}}
+{{- $displayTitle := .Params.maskedTitle | default (index $bib "title") -}}
+{{- $titlePrefix := .Params.maskedTitlePrefix | default "" -}}
+{{- $titleMosaic := .Params.maskedTitleMosaic | default "" -}}
 <article class="post-entry paper-entry">
   <header class="entry-header">
-    <h2>{{ index $bib "title" }}</h2>
+    <h2>
+      {{- if and $titlePrefix $titleMosaic -}}
+        <span>{{ $titlePrefix }}</span>
+        <span class="title-mask-clean">{{ $titleMosaic }}</span>
+      {{- else if $titleMosaic -}}
+        <span class="title-mask-clean">{{ $titleMosaic }}</span>
+      {{- else -}}
+        {{ $displayTitle }}
+      {{- end -}}
+    </h2>
   </header>
   <div class="entry-content paper-entry-content">
     <p class="paper-authors">{{ partial "papers/render_authors.html" (dict "authors" (index $bib "author") "equalContributors" $equalContributors) }}</p>
@@ -25,7 +37,9 @@
     <span class="paper-note">* equal contribution</span>
     {{- end }}
   </footer>
+  {{- if not .Params.disableDetail }}
   <a class="entry-link" aria-label="paper link to {{ index $bib "title" | plainify }}" href="{{ .RelPermalink }}"></a>
+  {{- end }}
 </article>
 {{- end -}}
 {{- end -}}
