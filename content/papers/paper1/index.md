@@ -3,6 +3,7 @@ title: "Rethinking Fixed-Budget Expert Activation in Fine-Grained MoEs"
 authors: "Haoqi Yang and Luohe Shi and Qiwei Li and Zuchao Li and Ping Wang and Hao Huang and Hai Zhao"
 publication: "ACL Findings"
 publicationYear: "2026"
+code: "https://github.com/brinenick511/ASET"
 date: 2025-01-01
 url: "papers/faster-moe-llm-inference/"
 slug: "faster-moe-llm-inference"

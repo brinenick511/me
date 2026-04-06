@@ -5,6 +5,8 @@
 {{- $displayAuthors := .Params.authors | default (index $bib "author") -}}
 {{- $displayPublication := .Params.publication | default (index $bib "publication") -}}
 {{- $displayYear := .Params.publicationYear | default (index $bib "year") -}}
+{{- $displayUrl := .Params.paperUrl | default (index $bib "url") -}}
+{{- $displayCode := .Params.code | default (index $bib "code") -}}
 
 <article class="post-single post-single-papers">
   <header class="post-header">
@@ -30,20 +32,20 @@
   </header>
 
   <div class="post-content">
-    {{- if or (index $bib "url") (index $bib "code") }}
+    {{- if or $displayUrl $displayCode }}
     <div class="paper-links-divider" aria-hidden="true"></div>
     <ul class="paper-links">
-      {{- if index $bib "url" }}
+      {{- if $displayUrl }}
       <li>
-        <a class="paper-link-icon" href="{{ index $bib "url" }}" target="_blank" rel="noopener noreferrer">
+        <a class="paper-link-icon" href="{{ $displayUrl }}" target="_blank" rel="noopener noreferrer">
           {{ partial "svg.html" (dict "name" "paper") }}
           <span>Paper</span>
         </a>
       </li>
       {{- end }}
-      {{- if index $bib "code" }}
+      {{- if $displayCode }}
       <li>
-        <a class="paper-link-icon" href="{{ index $bib "code" }}" target="_blank" rel="noopener noreferrer">
+        <a class="paper-link-icon" href="{{ $displayCode }}" target="_blank" rel="noopener noreferrer">
           {{ partial "svg.html" (dict "name" "code") }}
           <span>Code</span>
         </a>
