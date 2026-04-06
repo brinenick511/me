@@ -1,21 +1,25 @@
 {{- define "main" -}}
 {{- $bib := partial "papers/get_bib_entry.html" .Params.bibtex -}}
-{{- $equalContributors := int (index $bib "equalcontributors" | default "0") -}}
+{{- $equalContributors := int (.Params.equalContributors | default (index $bib "equalcontributors") | default "0") -}}
+{{- $displayTitle := .Title | default (index $bib "title") -}}
+{{- $displayAuthors := .Params.authors | default (index $bib "author") -}}
+{{- $displayPublication := .Params.publication | default (index $bib "publication") -}}
+{{- $displayYear := .Params.publicationYear | default (index $bib "year") -}}
 
 <article class="post-single post-single-papers">
   <header class="post-header">
-    <h1 class="post-title">{{ index $bib "title" }}</h1>
+    <h1 class="post-title">{{ $displayTitle }}</h1>
     <div class="post-meta paper-meta">
       <div class="paper-authors-row">
-        <span class="paper-authors">{{ partial "papers/render_authors.html" (dict "authors" (index $bib "author") "equalContributors" $equalContributors) }}</span>
+        <span class="paper-authors">{{ partial "papers/render_authors.html" (dict "authors" $displayAuthors "equalContributors" $equalContributors) }}</span>
       </div>
       <div class="paper-meta-row">
-        {{- if index $bib "publication" }}
-        <span>{{ index $bib "publication" }}</span>
+        {{- if $displayPublication }}
+        <span>{{ $displayPublication }}</span>
         {{- else if eq (index $bib "type") "inproceedings" }}
         <span>{{ index $bib "booktitle" }}</span>
         {{- end }}
-        {{- with index $bib "year" }}
+        {{- with $displayYear }}
         <span>{{ . }}</span>
         {{- end }}
         {{- if gt $equalContributors 0 }}
