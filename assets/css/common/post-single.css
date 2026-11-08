@@ -323,6 +323,22 @@
     margin: 1rem 0;
 }
 
+/* Paper detail figures break out of the text column for readability */
+.post-single-papers .post-content img {
+    width: calc(100% + var(--gap) * 2);
+    max-width: none;
+    margin-left: calc(var(--gap) * -1);
+    margin-right: calc(var(--gap) * -1);
+}
+
+@media screen and (max-width: 768px) {
+    .post-single-papers .post-content img {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
 .post-content img[src*="#center"] {
     margin: 1rem auto;
 }
