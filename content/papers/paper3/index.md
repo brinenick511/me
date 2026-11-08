@@ -1,18 +1,20 @@
 ---
 title: "ROCOB: Dual-Manifold Alignment with Optimal Budgeting for Training-Free PTQ Recovery"
 authors: "Haoqi Yang and Teng Xiao and Zuchao Li and Hao Huang and Lefei Zhang and Hai Zhao"
-publication: "AACL-IJCNLP 2026 (Oral)"
+publication: "AACL-IJCNLP Oral"
 publicationYear: "2026"
 date: 2026-11-01
 url: "papers/rocob/"
 slug: "rocob"
 weight: 0
 summary: "Training-free PTQ recovery via dual-manifold alignment and rank budgeting."
-description: "AACL-IJCNLP 2026 Oral."
+description: "AACL-IJCNLP Oral."
 bibtex: "yang2026rocob"
 hideMeta: true
 showBibtex: true
 ---
+
+![ROCOB framework overview](framework.png)
 
 ## Abstract
 
