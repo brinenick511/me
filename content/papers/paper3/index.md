@@ -1,17 +1,19 @@
 ---
-title: "ROCOB (masked)"
-date: 2026-01-03
+title: "ROCOB: Dual-Manifold Alignment with Optimal Budgeting for Training-Free PTQ Recovery"
+authors: "Haoqi Yang and Teng Xiao and Zuchao Li and Hao Huang and Lefei Zhang and Hai Zhao"
+publication: "AACL-IJCNLP 2026 (Oral)"
+publicationYear: "2026"
+date: 2026-11-01
 url: "papers/rocob/"
 slug: "rocob"
 weight: 0
-summary: "Training-free PTQ recovery (under review)."
-description: "Under review 2026."
+summary: "Training-free PTQ recovery via dual-manifold alignment and rank budgeting."
+description: "AACL-IJCNLP 2026 Oral."
 bibtex: "yang2026rocob"
 hideMeta: true
-showBibtex: false
-maskedTitleMosaic: "ROCOB: Dual-Manifold Alignment with Optimal Budgeting for Training-Free PTQ Recovery"
-disableDetail: true
-build:
-  render: never
-  list: always
+showBibtex: true
 ---
+
+## Abstract
+
+Post-training quantization facilitates efficient LLM deployment, yet it disproportionately erodes reasoning and mathematical performance. To recover fidelity without costly fine-tuning, we identify a critical vulnerability in existing output-space methods: the tendency to overfit the limited calibration manifold, which necessitates structural regularization for unseen data. We propose **ROCOB** (**R**esilient **O**utput **C**ompensation with **O**ptimal **B**udgeting), a training-free framework based on *Dual-Manifold Alignment*. ROCOB couples a Principal Activation Component (PAC), which minimizes error on the calibration manifold, with an Orthogonal Geometric Component (OGC), which recovers residual weight-space structure without fitting a second calibration objective. To compare methods fairly under the same added-parameter budget, ROCOB uses Global Spectral Energy Maximization (GSEM) to allocate ranks according to recovered spectral energy and module cost. Across Qwen3 and Llama-3 models, quantizers, and reasoning benchmarks, ROCOB improves average post-quantization recovery in most evaluated model–quantizer settings while preserving a training-free construction pipeline.
