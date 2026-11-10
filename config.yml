@@ -15,8 +15,12 @@ menu:
     main: []
 
 params:
-    # description: "Haoqi Yang's academic homepage."
+    description: "Haoqi Yang (杨昊骐), School of Computer Science, Wuhan University. Research on efficient LLM inference, MoE, and quantization."
     author: Haoqi Yang
+    verification:
+        google: ""
+        bing: "81DB4876B8E87ABA4F78DBDA355FF16C"
+        baidu: ""
     # googleAnalyticsID: "G-XXXXX"
     DateFormat: "January 2006"
     defaultTheme: light
