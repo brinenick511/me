@@ -26,10 +26,19 @@
     {{- range $i, $e := .Params.keywords }}{{ if $i }}, {{ end }}{{ $e }}{{ end }} {{- else }}
     {{- range $i, $e := .Params.tags }}{{ if $i }}, {{ end }}{{ $e }}{{ end }} {{- end -}}">
 {{- end }}
-<meta name="description" content="{{- with .Description }}{{ . }}{{- else }}{{- if or .IsPage .IsSection}}
+<meta name="description" content="{{- with .Description }}{{ . }}{{- else }}{{- if .IsHome }}{{ site.Params.description }}{{- else if or .IsPage .IsSection}}
     {{- .Summary | default (printf "%s - %s" .Title  site.Title) }}{{- else }}
     {{- with site.Params.description }}{{ . }}{{- end }}{{- end }}{{- end -}}">
 <meta name="author" content="{{ (partial "author.html" . ) }}">
+{{- with site.Params.verification.google }}
+<meta name="google-site-verification" content="{{ . }}">
+{{- end }}
+{{- with site.Params.verification.bing }}
+<meta name="msvalidate.01" content="{{ . }}">
+{{- end }}
+{{- with site.Params.verification.baidu }}
+<meta name="baidu-site-verification" content="{{ . }}">
+{{- end }}
 <link rel="canonical" href="{{ if .Params.canonicalURL -}} {{ trim .Params.canonicalURL " " }} {{- else -}} {{ .Permalink }} {{- end }}">
 
 {{- /* Styles */}}
@@ -163,7 +172,29 @@
 
 {{- partial "templates/opengraph.html" . }}
 {{- partial "templates/twitter_cards.html" . }}
+{{- if .IsHome }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Haoqi Yang",
+  "alternateName": "杨昊骐",
+  "url": "{{ site.Home.Permalink }}",
+  "image": "{{ "apple-touch-icon.png" | absURL }}",
+  "jobTitle": "Researcher",
+  "affiliation": {
+    "@type": "Organization",
+    "name": "Wuhan University"
+  },
+  "sameAs": [
+    "https://scholar.google.com/citations?user=iPVBGqoAAAAJ&hl=en",
+    "https://github.com/brinenick511"
+  ]
+}
+</script>
+{{- else }}
 {{- partial "templates/schema_json.html" . }}
+{{- end }}
 
 {{ if and (hugo.IsProduction) (.Site.Params.googleAnalyticsID) }}
 {{- partial "analytics.html" . }}
