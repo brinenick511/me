@@ -1,0 +1,174 @@
+@media (prefers-reduced-motion: no-preference) {
+    @view-transition {
+        navigation: auto;
+    }
+}
+
+::view-transition-old(root) {
+    animation: vt-fade-out 140ms var(--ease-out) both;
+}
+
+::view-transition-new(root) {
+    animation: vt-fade-in 200ms var(--ease-out) both;
+}
+
+@keyframes vt-fade-out {
+    to { opacity: 0; }
+}
+
+@keyframes vt-fade-in {
+    from { opacity: 0; }
+}
+
+.profile-link,
+.logo a,
+.post-single-papers .paper-links a,
+.email-dialog-copy {
+    transition:
+        background-color 160ms var(--ease-out),
+        border-color 160ms var(--ease-out),
+        color 160ms var(--ease-out),
+        transform 120ms var(--ease-out);
+}
+
+.profile-link:active,
+.logo a:active,
+.post-single-papers .paper-links a:active,
+.email-dialog-copy:active {
+    transform: scale(0.98);
+}
+
+.post-entry {
+    transition: border-color 200ms var(--ease-out), background-color 200ms var(--ease-out);
+}
+
+.email-dialog[open] {
+    animation: dialog-in 200ms var(--ease-out) both;
+}
+
+.email-dialog[open]::backdrop {
+    animation: backdrop-in 180ms ease-out both;
+}
+
+@keyframes dialog-in {
+    from { opacity: 0; transform: translateY(6px) scale(0.985); }
+    to { opacity: 1; transform: none; }
+}
+
+@keyframes backdrop-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.email-dialog-copy {
+    display: grid;
+    grid-template-areas: "icon";
+    place-items: center;
+}
+
+.email-dialog-copy-icon {
+    grid-area: icon;
+    display: inline-flex;
+    transition: opacity 140ms ease, transform 160ms var(--ease-out);
+}
+
+.email-dialog-copy-icon--check {
+    opacity: 0;
+    transform: scale(0.85);
+}
+
+.email-dialog-option.is-copied .email-dialog-copy-icon--copy {
+    opacity: 0;
+    transform: scale(0.85);
+}
+
+.email-dialog-option.is-copied .email-dialog-copy-icon--check {
+    opacity: 1;
+    transform: none;
+}
+
+.email-dialog-status {
+    transform: translateY(2px);
+    transition: opacity 160ms ease, transform 180ms var(--ease-out);
+}
+
+.email-dialog-status.is-visible {
+    transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    ::view-transition-old(root),
+    ::view-transition-new(root),
+    .email-dialog[open],
+    .email-dialog[open]::backdrop {
+        animation: none;
+    }
+
+    .profile-link,
+    .logo a,
+    .post-single-papers .paper-links a,
+    .email-dialog-copy,
+    .email-dialog-close,
+    .profile-link-icon,
+    .post-entry,
+    .email-dialog-copy-icon,
+    .email-dialog-status,
+    .back-arrow {
+        transition-duration: 0.01ms;
+    }
+
+    .profile-link:active,
+    .logo a:active,
+    .post-single-papers .paper-links a:active,
+    .email-dialog-copy:active {
+        transform: none;
+    }
+
+    .logo a:hover .back-arrow {
+        transform: none;
+    }
+}
+
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    border: 2px solid var(--code-bg);
+    border-radius: 10px;
+    background: rgb(207, 207, 207);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(181, 181, 181);
+}
+
+.profile-link-icon[data-icon="email"] svg {
+    width: 17px;
+    height: 17px;
+    stroke-width: 1.7;
+}
+
+.profile-link-icon[data-icon="location"] svg {
+    width: 18px;
+    height: 18px;
+    stroke-width: 1.6;
+}
+
+.profile-link-icon[data-icon="google scholar"] svg {
+    width: 17px;
+    height: 17px;
+    stroke-width: 1.7;
+}
+
+.profile-link-icon[data-icon="publications"] svg {
+    width: 15px;
+    height: 15px;
+    stroke-width: 1.9;
+}

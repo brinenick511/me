@@ -2,10 +2,11 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    margin-inline-start: auto;
-    margin-inline-end: auto;
-    line-height: var(--header-height);
-    background: var(--code-bg);
+    max-width: calc(var(--main-width) + var(--gap) * 2);
+    margin-inline: auto;
+    padding: 14px var(--gap) 0;
+    line-height: 1;
+    background: transparent;
 }
 
 .nav a {
@@ -15,7 +16,7 @@
 .logo,
 #menu {
     display: flex;
-    margin: auto var(--gap);
+    margin: 0;
 }
 
 .logo {
@@ -23,11 +24,44 @@
 }
 
 .logo a {
-    font-size: var(--headersize);
-    font-weight: var(--semibold);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 32px;
+    color: var(--secondary);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: 0.005em;
+    text-decoration: none;
 }
 
-.logo a img, .logo a svg {
+.logo a.home-link {
+    margin-inline-start: -3px;
+}
+
+.logo a:hover {
+    color: var(--primary);
+}
+
+.logo a:focus-visible {
+    outline: 2px solid var(--darkcolor);
+    outline-offset: 3px;
+}
+
+.back-arrow {
+    flex: none;
+    width: 15px;
+    height: 15px;
+    transition: transform 180ms var(--ease-out);
+}
+
+.logo a:hover .back-arrow {
+    transform: translateX(-2px);
+}
+
+.logo a img,
+.logo a svg:not(.back-arrow) {
     display: inline;
     vertical-align: middle;
     pointer-events: none;

@@ -30,10 +30,194 @@
   {{- if and (not .external) (not (hasPrefix .url "mailto:")) (not (hasPrefix .url "#")) -}}
     {{- $href = .url | relLangURL -}}
   {{- end -}}
-  <a class="profile-link" href="{{ $href | safeURL }}" {{ if .external }}target="_blank" rel="noopener noreferrer"{{ end }}>
-    <span class="profile-link-icon" aria-hidden="true">{{ partial "svg.html" (dict "name" .name) }}</span>
+  {{- $is_email := eq (lower .name) "email" -}}
+  <a class="profile-link" href="{{ $href | safeURL }}"{{ if .external }} target="_blank" rel="noopener noreferrer"{{ end }}{{ if $is_email }} data-email-dialog aria-haspopup="dialog" aria-controls="email-dialog"{{ end }}>
+    <span class="profile-link-icon" data-icon="{{ lower .name }}" aria-hidden="true">{{ partial "svg.html" (dict "name" .name) }}</span>
     <span class="profile-link-label">{{ .name }}</span>
   </a>
   {{- end }}
 </nav>
+
+<dialog class="email-dialog" id="email-dialog" aria-labelledby="email-dialog-title">
+  <div class="email-dialog-panel">
+    <div class="email-dialog-header">
+      <h2 id="email-dialog-title">Email</h2>
+      <button class="email-dialog-close" type="button" data-email-close aria-label="Close email dialog">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18"></path>
+        </svg>
+      </button>
+    </div>
+    <div class="email-dialog-list">
+      <div class="email-dialog-option">
+        <span class="email-dialog-text">
+          <span class="email-dialog-label">Personal</span>
+          <a class="email-dialog-address" href="mailto:brinenick511@gmail.com">brinenick511@gmail.com</a>
+        </span>
+        <button class="email-dialog-copy" type="button" data-email="brinenick511@gmail.com" title="Copy email address" aria-label="Copy brinenick511@gmail.com">
+          <span class="email-dialog-copy-icon email-dialog-copy-icon--copy" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="11" height="11" rx="2"></rect>
+              <path d="M5 15V5a2 2 0 0 1 2-2h10"></path>
+            </svg>
+          </span>
+          <span class="email-dialog-copy-icon email-dialog-copy-icon--check" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12.5l4.5 4.5L19 7"></path>
+            </svg>
+          </span>
+        </button>
+      </div>
+      <div class="email-dialog-option">
+        <span class="email-dialog-text">
+          <span class="email-dialog-label">Academic</span>
+          <a class="email-dialog-address" href="mailto:yanghq@whu.edu.cn">yanghq@whu.edu.cn</a>
+        </span>
+        <button class="email-dialog-copy" type="button" data-email="yanghq@whu.edu.cn" title="Copy email address" aria-label="Copy yanghq@whu.edu.cn">
+          <span class="email-dialog-copy-icon email-dialog-copy-icon--copy" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="11" height="11" rx="2"></rect>
+              <path d="M5 15V5a2 2 0 0 1 2-2h10"></path>
+            </svg>
+          </span>
+          <span class="email-dialog-copy-icon email-dialog-copy-icon--check" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12.5l4.5 4.5L19 7"></path>
+            </svg>
+          </span>
+        </button>
+      </div>
+    </div>
+    <p class="email-dialog-status" role="status" aria-live="polite" aria-atomic="true"></p>
+  </div>
+</dialog>
+
+<script>
+(() => {
+  const dialog = document.getElementById('email-dialog');
+  if (!dialog) return;
+  const triggers = document.querySelectorAll('[data-email-dialog]');
+  const status = dialog.querySelector('.email-dialog-status');
+  let statusTimer;
+
+  const resetStatus = () => {
+    clearTimeout(statusTimer);
+    status.textContent = '';
+    status.classList.remove('is-visible');
+    dialog.querySelectorAll('.email-dialog-option.is-copied').forEach((row) => {
+      row.classList.remove('is-copied');
+    });
+  };
+
+  const closeDialog = () => {
+    if (typeof dialog.close === 'function') {
+      dialog.close();
+    } else {
+      dialog.removeAttribute('open');
+      resetStatus();
+    }
+  };
+
+  triggers.forEach((trigger) => {
+    trigger.addEventListener('click', (event) => {
+      event.preventDefault();
+      resetStatus();
+      if (typeof dialog.showModal === 'function') {
+        dialog.showModal();
+      } else {
+        dialog.setAttribute('open', '');
+      }
+    });
+  });
+
+  dialog.querySelectorAll('[data-email-close]').forEach((button) => {
+    button.addEventListener('click', closeDialog);
+  });
+
+  const copyText = async (text) => {
+    if (navigator.clipboard && window.isSecureContext) {
+      try {
+        await navigator.clipboard.writeText(text);
+        return true;
+      } catch (error) {
+        // Fall through to the selection-based copy below.
+      }
+    }
+    const field = document.createElement('textarea');
+    field.value = text;
+    field.setAttribute('readonly', '');
+    field.style.position = 'fixed';
+    field.style.opacity = '0';
+    dialog.appendChild(field);
+    field.select();
+    let copied = false;
+    try {
+      copied = document.execCommand('copy');
+    } catch (error) {
+      copied = false;
+    }
+    field.remove();
+    return copied;
+  };
+
+  dialog.querySelectorAll('[data-email]').forEach((option) => {
+    option.addEventListener('click', async () => {
+      const email = option.dataset.email;
+      const copied = await copyText(email);
+      resetStatus();
+      status.textContent = copied ? `Copied ${email}` : `Could not copy ${email}`;
+      status.classList.add('is-visible');
+      option.closest('.email-dialog-option').classList.toggle('is-copied', copied);
+      statusTimer = setTimeout(resetStatus, 2200);
+    });
+  });
+
+  dialog.addEventListener('close', resetStatus);
+
+  dialog.addEventListener('click', (event) => {
+    if (event.target === dialog) closeDialog();
+  });
+})();
+</script>
 {{- end -}}
+
+<script>
+(() => {
+  const locationLink = [...document.querySelectorAll('.profile-link')]
+    .find((link) => /location/i.test(link.textContent || ''));
+  if (!locationLink) return;
+
+  let warmed = false;
+  const warmLocation = () => {
+    if (warmed) return;
+    warmed = true;
+
+    const addLink = (rel, href, as) => {
+      const link = document.createElement('link');
+      link.rel = rel;
+      link.href = href;
+      if (as) link.as = as;
+      document.head.appendChild(link);
+    };
+
+    addLink('prefetch', locationLink.href);
+    addLink('prefetch', '/me/location-map-preview.webp', 'image');
+
+    let timeZone = '';
+    let language = '';
+    try {
+      timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+      language = ((navigator.languages && navigator.languages.find((item) => /^zh/i.test(item))) || navigator.language || '');
+    } catch (error) {
+      // Keep the Google default when locale detection is unavailable.
+    }
+    const chinaTimeZone = /^Asia\/(Shanghai|Chongqing|Urumqi|Harbin)$/i.test(timeZone);
+    const chineseLanguage = /^zh/i.test(language);
+    addLink('preconnect', chinaTimeZone && chineseLanguage ? 'https://www.amap.com' : 'https://www.google.com');
+  };
+
+  locationLink.addEventListener('pointerenter', warmLocation, { once: true });
+  locationLink.addEventListener('focus', warmLocation, { once: true });
+  setTimeout(warmLocation, 2500);
+})();
+</script>

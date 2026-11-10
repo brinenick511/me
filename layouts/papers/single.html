@@ -24,16 +24,12 @@
         {{- with $displayYear }}
         <span>{{ . }}</span>
         {{- end }}
-        {{- if gt $equalContributors 0 }}
-        <span>* equal contribution</span>
-        {{- end }}
       </div>
     </div>
   </header>
 
   <div class="post-content">
     {{- if or $displayUrl $displayCode }}
-    <div class="paper-links-divider" aria-hidden="true"></div>
     <ul class="paper-links">
       {{- if $displayUrl }}
       <li>

@@ -28,6 +28,15 @@
     --lineheight: 1.45;
     --lineclamp: 8;
     --marginleft: 26px;
+    --control-radius: 7px;
+    --control-bg: #ffffff;
+    --control-border: rgb(209, 209, 209);
+    --control-ink: rgb(30, 30, 30);
+    --control-hover-bg: rgb(241, 241, 241);
+    --control-hover-ink: rgb(30, 30, 30);
+    --control-border-hover: rgb(184, 184, 184);
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 .dark {

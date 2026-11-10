@@ -85,9 +85,33 @@
 {{- end }}
 {{- end -}}
 
-{{- /* Favicons intentionally disabled */}}
-<meta name="theme-color" content="{{ site.Params.assets.theme_color | default "#2e2e33" }}">
-<meta name="msapplication-TileColor" content="{{ site.Params.assets.msapplication_TileColor | default "#2e2e33" }}">
+{{- /* Favicons */}}
+<link rel="icon" href="{{ "favicon.ico" | absURL }}" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ "favicon-32x32.png" | absURL }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ "favicon-16x16.png" | absURL }}">
+<link rel="apple-touch-icon" sizes="180x180" href="{{ "apple-touch-icon.png" | absURL }}">
+<meta name="theme-color" content="#f7f5ef">
+<meta name="msapplication-TileColor" content="#f7f5ef">
+{{- if or .IsHome (eq .Section "papers") }}
+<link rel="preload" as="font" type="font/woff2" crossorigin href="{{ "fonts/ibm-plex-sans-400.woff2" | relURL }}">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="{{ "fonts/ibm-plex-sans-600.woff2" | relURL }}">
+<style>
+@font-face {
+    font-family: "IBM Plex Sans";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url("{{ "fonts/ibm-plex-sans-400.woff2" | relURL }}") format("woff2");
+}
+@font-face {
+    font-family: "IBM Plex Sans";
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url("{{ "fonts/ibm-plex-sans-600.woff2" | relURL }}") format("woff2");
+}
+</style>
+{{- end }}
 
 {{- /* RSS */}}
 {{ range .AlternativeOutputFormats -}}

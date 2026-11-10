@@ -11,13 +11,8 @@ taxonomies:
     tag: tags
 
 menu:
-    main:
-        - name: Papers
-          url: papers/
-          weight: 1
-        - name: Location
-          url: location/
-          weight: 2
+    # Header menu hidden for now; homepage links remain in profileMode.
+    main: []
 
 params:
     # description: "Haoqi Yang's academic homepage."
@@ -25,7 +20,7 @@ params:
     # googleAnalyticsID: "G-XXXXX"
     DateFormat: "January 2006"
     defaultTheme: light
-    hideFooter: false
+    hideFooter: true
     disableThemeToggle: true
     ShowShareButtons: false
     ShowReadingTime: false
@@ -46,13 +41,14 @@ params:
     profileMode:
           enabled: true
           title: Haoqi Yang
+          titleZh: 杨昊骐
           # subtitle: "Research on efficient inference and compression for large language models."
           imageUrl: "avatar.jpg"
           imageWidth: 160
           imageHeight: 160
           buttons:
-            - name: Papers
-              url: papers/
+            - name: Publications
+              url: publications/
 
     socialIcons:
         # - name: CV

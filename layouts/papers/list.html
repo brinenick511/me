@@ -1,4 +1,5 @@
 {{- define "main" -}}
+<div class="publications-shell">
 <header class="page-header">
   <h1>{{ .Title }}</h1>
   {{- with .Description }}
@@ -36,13 +37,11 @@
     {{- with $displayYear }}
     <span>{{ . }}</span>
     {{- end }}
-    {{- if gt $equalContributors 0 }}
-    <span class="paper-note">* equal contribution</span>
-    {{- end }}
   </footer>
   {{- if not .Params.disableDetail }}
-  <a class="entry-link" aria-label="paper link to {{ $displayTitle | plainify }}" href="{{ .RelPermalink }}"></a>
+  <a class="entry-link" aria-label="paper link to {{ $displayTitle | plainify }}" href="{{ .RelPermalink }}" target="_blank" rel="noopener noreferrer"></a>
   {{- end }}
 </article>
 {{- end -}}
+</div>
 {{- end -}}

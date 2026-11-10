@@ -1,8 +1,6 @@
 .main .profile {
     display: flex;
     justify-content: left;
-}
-.main .profile {
     align-items: center;
     min-height: calc(100vh - var(--footer-height) - (var(--gap) * 2));
     font-size: var(--homesize);
@@ -14,11 +12,29 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
+    gap: 12px;
 }
 
 .profile .profile_inner h1 {
-    font-size: 2.5rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.12em 0.48em;
+    font-size: clamp(2.2rem, 5.2vw, 2.5rem);
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+}
+
+.profile .name-zh {
+    color: #1e1e1e;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Source Han Sans SC", sans-serif;
+    font-size: clamp(21px, 3.9vw, 26px);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
 }
 
 .profile img {
@@ -29,31 +45,210 @@
 .profile-links {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px 18px;
-    margin-top: 8px;
+    gap: 8px;
+    margin-top: 12px;
 }
 
 .profile-link {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    color: var(--secondary);
-    font-size: 0.95rem;
+    min-height: 36px;
+    padding: 0 14px;
+    border: 1px solid var(--control-border);
+    border-radius: var(--control-radius);
+    background: var(--control-bg);
+    color: var(--control-ink);
+    font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: 0.005em;
     text-decoration: none;
-    box-shadow: 0 1px 0 transparent;
-    transition: color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .profile-link:hover {
-    color: var(--primary);
-    box-shadow: 0 1px 0 var(--border);
+    border-color: var(--control-border-hover);
+    background: var(--control-hover-bg);
+    color: var(--control-hover-ink);
+}
+
+.profile-link:focus-visible {
+    outline: 2px solid var(--darkcolor);
+    outline-offset: 3px;
 }
 
 .profile-link-icon {
     display: inline-flex;
+    flex: none;
+    opacity: 0.7;
+    transition: opacity 120ms var(--ease-out);
+}
+
+.profile-link:hover .profile-link-icon {
+    opacity: 1;
 }
 
 .profile-link-icon svg {
-    width: 1.45rem;
-    height: 1.45rem;
+    width: 16px;
+    height: 16px;
+    stroke-width: 1.7;
+}
+
+.email-dialog {
+    width: min(92vw, 400px);
+    padding: 0;
+    border: 1px solid var(--tertiary);
+    border-radius: 10px;
+    background: var(--theme);
+    color: var(--primary);
+}
+
+.email-dialog::backdrop {
+    background: rgba(20, 20, 20, 0.32);
+}
+
+.email-dialog-panel {
+    padding: 24px;
+}
+
+.email-dialog-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 12px;
+}
+
+.email-dialog-header h2 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0.005em;
+}
+
+.email-dialog-close {
+    display: grid;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--secondary);
+    cursor: pointer;
+    place-items: center;
+    transition: background-color 120ms var(--ease-out), color 120ms var(--ease-out);
+}
+
+.email-dialog-close:hover {
+    background: var(--code-bg);
+    color: var(--primary);
+}
+
+.email-dialog-close:focus-visible {
+    outline: 2px solid var(--darkcolor);
+    outline-offset: 2px;
+}
+
+.email-dialog-close svg {
+    width: 16px;
+    height: 16px;
+}
+
+.email-dialog-list {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--border);
+}
+
+.email-dialog-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.email-dialog-option:last-child {
+    border-bottom: 0;
+}
+
+.email-dialog-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.email-dialog-label {
+    color: var(--secondary);
+    font-size: 12px;
+    line-height: 1.3;
+}
+
+.email-dialog-address {
+    color: var(--primary);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 14px;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+    text-decoration: underline;
+    text-decoration-color: var(--gray);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+}
+
+.email-dialog-address:hover {
+    text-decoration-color: currentColor;
+}
+
+.email-dialog-address:focus-visible,
+.email-dialog-copy:focus-visible {
+    outline: 2px solid var(--darkcolor);
+    outline-offset: 2px;
+}
+
+.email-dialog-copy {
+    display: inline-grid;
+    place-items: center;
+    flex: none;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--secondary);
+    cursor: pointer;
+}
+
+.email-dialog-copy:hover {
+    border-color: var(--control-border);
+    background: var(--code-bg);
+    color: var(--primary);
+}
+
+.email-dialog-copy svg {
+    width: 15px;
+    height: 15px;
+}
+
+.email-dialog-option.is-copied .email-dialog-copy {
+    color: var(--primary);
+}
+
+.email-dialog-status {
+    min-height: 1.2em;
+    margin: 12px 0 0;
+    color: var(--secondary);
+    font-size: 12.5px;
+    opacity: 0;
+}
+
+.email-dialog-status.is-visible {
+    opacity: 1;
 }

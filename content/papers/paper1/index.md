@@ -1,23 +1,28 @@
 ---
 title: "Faster MoE LLM Inference for Extremely Large Models"
 authors: "Haoqi Yang and Luohe Shi and Qiwei Li and Zuchao Li and Ping Wang and Hao Huang and Hai Zhao"
-publication: "Findings of ACL 2026"
+publication: "ACL Findings"
 publicationYear: "2026"
+equalContributors: 2
 code: "https://github.com/brinenick511/ASET"
 date: 2026-07-01
-url: "papers/faster-moe-llm-inference/"
+url: "publications/faster-moe-llm-inference/"
+aliases:
+  - "/papers/faster-moe-llm-inference/"
 slug: "faster-moe-llm-inference"
 weight: 2
 summary: "Adaptive expert activation for efficient fine-grained MoE inference."
-description: "Findings of ACL 2026."
+description: "ACL Findings."
 bibtex: "yang2025fastermoellminference"
 hideMeta: true
 showBibtex: true
 ---
 
-![MoE demo figure](moedemo.png)
+<img src="moedemo.png" width="960" height="269" loading="lazy" decoding="async" alt="MoE demo figure">
 
-![v2l top-k figure](v2ltopk.png)
+<img class="paper-figure-algorithm" src="aset-algorithm.png" width="784" height="866" loading="lazy" decoding="async" alt="ASET per-token activation algorithm">
+
+<img class="paper-figure-small" src="v2ltopk.png" width="324" height="216" loading="lazy" decoding="async" alt="Throughput and acceleration ratio versus activation budget">
 
 ## Abstract
 

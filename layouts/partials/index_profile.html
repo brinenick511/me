@@ -11,26 +11,17 @@
             {{- if hugo.IsExtended -}}
                 {{- $processableFormats = $processableFormats | append "webp" -}}
             {{- end -}}
-            {{- $prod := (hugo.IsProduction | or (eq site.Params.env "production")) }}
-            {{- if and (in $processableFormats $img.MediaType.SubType) (eq $prod true)}}
-                {{- if (not (and (not .imageHeight) (not .imageWidth))) }}
-                    {{- $img = $img.Resize (printf "%dx%d" .imageWidth .imageHeight) }}
-                {{- else if .imageHeight }}
-                    {{- $img = $img.Resize (printf "x%d" .imageHeight) }}
-                {{ else if .imageWidth }}
-                    {{- $img = $img.Resize (printf "%dx" .imageWidth) }}
-                {{ else }}
-                    {{- $img = $img.Resize "150x150" }}
-                {{- end }}
+            {{- if in $processableFormats $img.MediaType.SubType }}
+                {{- $img = $img.Resize (printf "%dx%d" (.imageWidth | default 160) (.imageHeight | default 160)) }}
             {{- end }}
-            <img draggable="false" src="{{ $img.Permalink }}" alt="{{ .imageTitle | default "profile image" }}" title="{{ .imageTitle }}"
-                height="{{ .imageHeight | default 150 }}" width="{{ .imageWidth | default 150 }}" />
+            <img draggable="false" src="{{ $img.RelPermalink }}" alt="{{ .imageTitle | default (site.Params.author | default "Haoqi Yang") }}" title="{{ .imageTitle }}"
+                height="{{ .imageHeight | default 160 }}" width="{{ .imageWidth | default 160 }}" />
         {{- else }}
         <img draggable="false" src="{{ .imageUrl | absURL }}" alt="{{ .imageTitle | default "profile image" }}" title="{{ .imageTitle }}"
             height="{{ .imageHeight | default 150 }}" width="{{ .imageWidth | default 150 }}" />
         {{- end }}
         {{- end }}
-        <h1>{{ .title | default site.Title | markdownify }}</h1>
+        <h1><span class="name-en">{{ .title | default site.Title | markdownify }}</span>{{ with .titleZh }}&#32;<span class="name-zh" lang="zh-CN">{{ . }}</span>{{ end }}</h1>
         {{- with .subtitle }}
         <span>{{ . | markdownify }}</span>
         {{- end }}

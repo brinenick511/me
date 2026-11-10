@@ -8,7 +8,7 @@
     {{- $name = printf "<strong>%s</strong>" $name -}}
   {{- end -}}
   {{- if lt $index $equalContributors -}}
-    {{- $name = printf "%s*" $name -}}
+    {{- $name = printf "%s<sup class=\"paper-equal-mark\">*</sup>" $name -}}
   {{- end -}}
   {{- $formatted = $formatted | append $name -}}
 {{- end -}}
