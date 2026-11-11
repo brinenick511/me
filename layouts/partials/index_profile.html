@@ -21,7 +21,14 @@
             height="{{ .imageHeight | default 150 }}" width="{{ .imageWidth | default 150 }}" />
         {{- end }}
         {{- end }}
-        <h1><span class="name-en">{{ .title | default site.Title | markdownify }}</span>{{ with .titleZh }}&#32;<span class="name-zh" lang="zh-CN">{{ . }}</span>{{ end }}</h1>
+        <h1>
+            <span class="name-en">{{ .title | default site.Title | markdownify }}</span>
+            {{ if or .titleZh .pronunciation }}
+            <span class="name-reading">
+                {{ with .titleZh }}<span class="name-zh" lang="zh-CN">{{ . }}</span>{{ end }}{{ with .pronunciation }}&#32;<span class="name-ipa" lang="cmn-fonipa" title="Standard Mandarin pronunciation">{{ . }}</span>{{ end }}
+            </span>
+            {{ end }}
+        </h1>
         {{- with .subtitle }}
         <span>{{ . | markdownify }}</span>
         {{- end }}

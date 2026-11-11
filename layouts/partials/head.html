@@ -122,6 +122,17 @@
 </style>
 {{- end }}
 
+{{- if .IsHome }}
+<style>
+@font-face {
+    font-family: "Noto Sans IPA";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url("{{ "fonts/noto-sans-ipa-400.woff2" | relURL }}") format("woff2");
+}
+</style>
+{{- end }}
 {{- /* RSS */}}
 {{ range .AlternativeOutputFormats -}}
 <link rel="{{ .Rel }}" type="{{ .MediaType.Type | html }}" href="{{ .Permalink | safeURL }}">

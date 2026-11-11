@@ -46,6 +46,7 @@ params:
           enabled: true
           title: Haoqi Yang
           titleZh: 杨昊骐
+          pronunciation: "[jɑŋ˧˥ xɑʊ̯˥˩ t͡ɕʰi˧˥]"
           # subtitle: "Research on efficient inference and compression for large language models."
           imageUrl: "avatar.jpg"
           imageWidth: 160
